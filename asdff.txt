@@ -1,0 +1,22 @@
+  
+  const [audio, setCurrentAudio] = useState<MediaStream>();
+  
+  
+  const getMicrophone = async () => {
+    const audio = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false,
+    });
+    setCurrentAudio(audio);
+  };
+
+  const stopMicrophone = () => {
+    audio === undefined
+      ? void 0
+      : audio.getTracks().forEach((track) => track.stop());
+    setCurrentAudio(undefined);
+  };
+
+  const toggleMic = () => {
+    audio === undefined ? getMicrophone() : stopMicrophone();
+  };
